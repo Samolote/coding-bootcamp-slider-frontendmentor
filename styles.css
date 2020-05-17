@@ -13,6 +13,36 @@
 	box-sizing: border-box;
 }
 
+@keyframes animUp {
+	from {
+		transform: translateY(-50px);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes animLeft {
+	from {
+		transform: translateX(-50px);
+		opacity: 0;
+	}
+	to {
+		transform: translateX(0);
+		opacity: 1;
+	}
+}
+
+.animUp {
+	animation: animUp 1s forwards;
+}
+
+.animLeft {
+	animation: animLeft 1s forwards;
+}
+
 html {
 	font-family: 'Inter', sans-serif;
 	font-size: 18px;
@@ -64,8 +94,10 @@ html {
 	position: absolute;
 	bottom: 0;
 	left: 50%;
+	/* border-radius: 1rem; */
 	transform: translate(-50%, -50%);
 	z-index: 1;
+	/* overflow: hidden; */
 }
 
 .button-container::after {
