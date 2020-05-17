@@ -1,3 +1,5 @@
+//SLIDER
+
 const prev = document.querySelector('.button--prev');
 const next = document.querySelector('.button--next');
 const portrait = document.querySelector('.portrait-container__portrait');
@@ -59,3 +61,35 @@ prev.addEventListener('click', slideToPrev);
 next.addEventListener('click', slideToNext);
 updatePortrait(index);
 updateTestimonial(index);
+
+//BUTTON RIPPLE
+const buttonContainer = document.querySelector('.button-container');
+
+const removeRipple = function () {
+	buttonContainer.removeChild(this);
+};
+
+const buttonClickHandler = function () {
+	const ripple = document.createElement('span');
+	ripple.classList.add('ripple');
+
+	const diameter = Math.max(this.clientWidth, this.clientHeight);
+
+	const xPos = event.target.classList.contains('button--next')
+		? event.layerX + event.target.offsetLeft - diameter / 2
+		: event.layerX - diameter / 2;
+
+	const yPos = event.target.classList.contains('button--next')
+		? event.layerY + event.target.offsetTop - diameter / 2
+		: event.layerY - diameter / 2;
+
+	ripple.style.width = `${diameter}px`;
+	ripple.style.height = `${diameter}px`;
+	ripple.style.left = `${xPos}px`;
+	ripple.style.top = `${yPos}px`;
+
+	this.appendChild(ripple);
+	ripple.addEventListener('animationend', removeRipple);
+};
+
+buttonContainer.addEventListener('click', buttonClickHandler, false);
