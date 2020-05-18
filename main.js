@@ -20,21 +20,33 @@ const people = [
 const hideTestimonials = () =>
 	testimonials.forEach((testimonial) => (testimonial.style.display = 'none'));
 
-const animate = (element, cssClass, timeout) => {
+// const removeAnimation = (element, cssClass) => {
+// 	element.classList.remove(cssClass);
+// 	element.removeEventListener('animationend', removeAnimation(element, cssClass));
+// };
+
+const collectAnimations = (element, cssClass) => {
+	console.log(element);
+	console.log(cssClass);
+};
+
+const animate = (element, cssClass) => {
 	element.classList.add(cssClass);
-	setTimeout(() => element.classList.remove(cssClass), timeout);
+	element.addEventListener('animationend', () => {
+		element.classList.remove(cssClass);
+	});
 };
 
 const updatePortrait = (index) => {
 	portrait.src = people[index]['portrait'];
 	portrait.alt = `A portrait of ${people[index]['name']}`;
-	animate(portrait, 'animUp', 1020);
+	animate(portrait, 'animUp');
 };
 
 const updateTestimonial = (index) => {
 	hideTestimonials();
 	testimonials[index].style.display = 'block';
-	animate(testimonials[index], 'animLeft', 1020);
+	animate(testimonials[index], 'animLeft');
 };
 
 const slideToPrev = () => {
@@ -70,26 +82,19 @@ const removeRipple = function () {
 };
 
 const buttonClickHandler = function () {
+	const rect = event.currentTarget.getBoundingClientRect();
+	const diameter = Math.max(this.clientWidth, this.clientHeight);
+	const radius = diameter / 2;
+	const xPos = event.clientX - (rect.left + radius);
+	const yPos = event.clientY - (rect.top + radius);
 	const ripple = document.createElement('span');
 	ripple.classList.add('ripple');
-
-	const diameter = Math.max(this.clientWidth, this.clientHeight);
-
-	const xPos = event.target.classList.contains('button--next')
-		? event.layerX + event.target.offsetLeft - diameter / 2
-		: event.layerX - diameter / 2;
-
-	const yPos = event.target.classList.contains('button--next')
-		? event.layerY + event.target.offsetTop - diameter / 2
-		: event.layerY - diameter / 2;
-
 	ripple.style.width = `${diameter}px`;
 	ripple.style.height = `${diameter}px`;
 	ripple.style.left = `${xPos}px`;
 	ripple.style.top = `${yPos}px`;
-
 	this.appendChild(ripple);
 	ripple.addEventListener('animationend', removeRipple);
 };
 
-buttonContainer.addEventListener('click', buttonClickHandler, false);
+buttonContainer.addEventListener('click', buttonClickHandler);
