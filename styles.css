@@ -67,11 +67,10 @@ html {
 }
 
 .testimonials {
+	display: grid;
 	position: relative;
-	background: url('./assets/images/pattern-curve.svg') left bottom / contain no-repeat;
-}
-
-.testimonials__content {
+	padding-bottom: 2.5rem;
+	background: url('./assets/images/pattern-curve.svg') left bottom / 280px no-repeat;
 }
 
 .testimonials__display-controls {
@@ -86,17 +85,6 @@ html {
 	padding: 1.5rem 0;
 	background: url('./assets/images/pattern-bg.svg') center center / contain no-repeat;
 }
-
-/* .portrait-container::after {
-	content: '';
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	background: url('./assets/images/pattern-bg.svg') center center / contain no-repeat;
-	z-index: -1;
-} */
 
 .portrait-container__wrapper {
 	position: relative;
@@ -181,6 +169,10 @@ html {
 	animation: ripple 1s forwards;
 }
 
+.testimonials__content {
+	pointer-events: none;
+}
+
 .testimonial {
 	margin: 0 2rem;
 	padding: 1.3rem 0;
@@ -220,7 +212,7 @@ html {
 }
 
 .footer {
-	margin-top: 5rem;
+	margin-top: 1rem;
 }
 
 .attribution {
@@ -237,17 +229,17 @@ html {
 		font-size: 32px;
 	}
 
+	.testimonials {
+		background-size: 50%;
+	}
+
 	.portrait-container__portrait {
-		max-width: 540px;
+		max-width: 440px;
 		width: 50%;
 	}
 
 	.testimonial__attribution {
 		font-size: 0.6em;
-	}
-
-	.footer {
-		margin-top: 2.5rem;
 	}
 
 	.attribution {
@@ -256,4 +248,70 @@ html {
 }
 
 @media (min-width: 1200px) {
+	.testimonials {
+		grid-template-columns: 40% 10% 10% 40%;
+		grid-template-areas: 'display';
+		background-size: 600px;
+	}
+
+	.testimonials__display-controls {
+		grid-row: 1 / 1;
+		grid-column: 2 / span 3;
+		z-index: 1;
+	}
+
+	.portrait-container {
+		padding: 2rem 0 1.5rem;
+	}
+
+	.portrait-container__portrait {
+		width: 100%;
+		max-width: 540px;
+	}
+
+	.button-container {
+		left: 22%;
+		transform: translateY(50%);
+	}
+
+	.button-container--shadow {
+		left: 25%;
+	}
+
+	.button {
+		width: 56px;
+		height: 56px;
+	}
+
+	.button::before {
+		top: 22px;
+		left: 22px;
+		width: 12px;
+		height: 12px;
+	}
+
+	.testimonials__content {
+		grid-row: 1 / 1;
+		grid-column: 1 / span 3;
+		display: flex;
+		flex-direction: column;
+		justify-content: center;
+		z-index: 2;
+	}
+
+	.testimonial__container {
+		text-align: left;
+	}
+
+	.testimonial {
+		margin: 0 4rem;
+		padding: 2.2rem 0;
+		background-size: 120px;
+		background-position-x: 2.8rem;
+	}
+
+	.testimonial__referenced-person {
+		display: inline;
+		margin-right: 10px;
+	}
 }
